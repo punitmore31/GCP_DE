@@ -1,0 +1,68 @@
+{
+  "userProfile": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "User Profile",
+    "description": "A schema for validating a user profile object.",
+    "type": "object",
+    "properties": {
+      "userId": {
+        "description": "Unique identifier for the user.",
+        "type": "integer"
+      },
+      "username": {
+        "description": "The user's public name.",
+        "type": "string",
+        "minLength": 3
+      },
+      "email": {
+        "description": "The user's email address.",
+        "type": "string",
+        "format": "email"
+      },
+      "isActive": {
+        "description": "Flag to indicate if the user account is active.",
+        "type": "boolean",
+        "default": true
+      }
+    },
+    "required": [
+      "userId",
+      "username",
+      "email"
+    ]
+  },
+  "product": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Product",
+    "description": "A schema for validating a product object.",
+    "type": "object",
+    "properties": {
+      "productId": {
+        "description": "The unique identifier for a product (SKU).",
+        "type": "string",
+        "pattern": "^[A-Z0-9]{3,10}$"
+      },
+      "productName": {
+        "description": "Name of the product.",
+        "type": "string"
+      },
+      "price": {
+        "description": "The price of the product.",
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "tags": {
+        "description": "An array of tags for the product.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "productId",
+      "productName",
+      "price"
+    ]
+  }
+}
