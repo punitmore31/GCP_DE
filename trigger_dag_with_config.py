@@ -3,7 +3,7 @@ import requests
 import json
 
 
-TABLE_LIST = ["MANKELI_OWNER.DIM_VENDOR"]
+TABLE_LIST = ["MANKELI_OWNER.DIM_PROFIT_LOSS_HEADER","MANKELI_OWNER.DIM_PROFIT_LOSS_PARENT_CHILD", "MANKELI_OWNER.DIM_TELCO_DS"]
 
 # ---------------- CONFIG ----------------
 GCLOUD_PATH = r"C:\Users\punitkumar.more\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd"
@@ -50,3 +50,5 @@ for idx, full_table_name in enumerate(TABLE_LIST):
         print(f"Failed to trigger DAG for {full_table_name}, status: {response.status_code}, response: {response.text}")
 
     print("# =================================================== #\n")
+
+

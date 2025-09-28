@@ -23,11 +23,11 @@ INPUT_TABLE_LIST = [
 ]
 
 # Path where the files are initially generated
-OUT_PATH = r'D:\python_project\output\history_task_props'
+OUT_PATH = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\GCP_DE\AUTOMATION\output\history_task_props'
 
 # --- NEW: Git Repository Configuration ---
 # IMPORTANT: Update this path to your local Git repository clone
-GIT_REPO_PATH = r'D:\python_project\fdw-qa\fdw-dags'
+GIT_REPO_PATH = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\GCP_DE\AUTOMATION\fdw-qa\fdw-dags'
 # IMPORTANT: Specify the subdirectory within the repo to place the files
 GIT_TARGET_SUBDIR = r'fdw\config\task_config\MANKELI_HISTORY'
 

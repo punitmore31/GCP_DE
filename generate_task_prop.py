@@ -4,7 +4,7 @@ import os
 input_table_list = ["MANKELI_OWNER.DIM_BUSINESS_PORTFOLIO_ACCOUNT","MANKELI_OWNER.DIM_BUSINESS_PORTFOLIO_PL","MANKELI_OWNER.DIM_PROFIT_LOSS_HEADER","MANKELI_OWNER.DIM_PROFIT_LOSS_PARENT_CHILD","MANKELI_OWNER.DIM_TELCO_DS"]
 
 ###########################################################
-out_path = r'D:\python_project\output\history_task_props'
+out_path = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\GCP_DE\AUTOMATION\output\history_task_props'
 input_template = """tasks:
   - task_name: oracle-table-name-load
     job_name: dif-table-name-load
