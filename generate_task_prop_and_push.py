@@ -23,11 +23,11 @@ INPUT_TABLE_LIST = [
 ]
 
 # Path where the files are initially generated
-OUT_PATH = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\GCP_DE\AUTOMATION\output\history_task_props'
+OUT_PATH = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\output\history_task_props'
 
 # --- NEW: Git Repository Configuration ---
 # IMPORTANT: Update this path to your local Git repository clone
-GIT_REPO_PATH = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\GCP_DE\AUTOMATION\fdw-qa\fdw-dags'
+GIT_REPO_PATH = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\fdw-qa\fdw-dags'
 # IMPORTANT: Specify the subdirectory within the repo to place the files
 GIT_TARGET_SUBDIR = r'fdw\config\task_config\MANKELI_HISTORY'
 
@@ -105,7 +105,7 @@ else:
         commit_message = "Automated commit: Add new task property files"
         subprocess.run(['git', 'commit', '-m', commit_message], cwd=GIT_REPO_PATH, check=True)
         
-        subprocess.run(['git', 'push'], cwd=GIT_REPO_PATH, check=True)
+        #subprocess.run(['git', 'push'], cwd=GIT_REPO_PATH, check=True)
         
         print("\n✅ Git operations completed successfully.")
 
@@ -118,3 +118,5 @@ else:
         print("Please check your Git configuration, permissions, and repository status.")
     except Exception as e:
         print(f"\n❌ An unexpected error occurred: {e}")
+
+

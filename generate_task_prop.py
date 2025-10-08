@@ -1,10 +1,10 @@
 import os
 
 ###########################################################
-input_table_list = ["MANKELI_OWNER.DIM_BUSINESS_PORTFOLIO_ACCOUNT","MANKELI_OWNER.DIM_BUSINESS_PORTFOLIO_PL","MANKELI_OWNER.DIM_PROFIT_LOSS_HEADER","MANKELI_OWNER.DIM_PROFIT_LOSS_PARENT_CHILD","MANKELI_OWNER.DIM_TELCO_DS"]
+input_table_list = ["MANKELI_OWNER.DIM_ACCT_HIERARCHY_2011"]
 
 ###########################################################
-out_path = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\GCP_DE\AUTOMATION\output\history_task_props'
+out_path = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\output\history_task_props'
 input_template = """tasks:
   - task_name: oracle-table-name-load
     job_name: dif-table-name-load
@@ -34,5 +34,7 @@ for tb in input_table_list:
     with open(out_file_path, "w", encoding="utf-8") as f:
         f.write(out_template)
         
+
+
 
 
