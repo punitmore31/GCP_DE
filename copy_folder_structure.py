@@ -1,3 +1,55 @@
+
+import os
+def list_directory_structure(start_path):
+    for root, dirs, files in os.walk(start_path):
+        level = root.replace(start_path, '').count(os.sep)
+        indent = ' ' * 4 * level
+        print(f"{indent}{os.path.basename(root)}/")
+        subindent = ' ' * 4 * (level + 1)
+        for f in files:
+            print(f"{subindent}{f}")
+
+
+
+
+
+import os
+
+def list_directory_structure(startpath, indent=0):
+    """
+    Print the directory structure starting from startpath.
+    indent parameter controls the indentation level.
+    """
+    # Print the root directory
+    print('|--' + os.path.basename(startpath))
+    
+    # Walk through the directory
+    for root, dirs, files in os.walk(startpath):
+        level = root.replace(startpath, '').count(os.sep)
+        indent_str = '|   ' * level + '|--'
+        
+        # Print current directory name
+        folder_name = os.path.basename(root)
+        if root != startpath:
+            print(indent_str + folder_name)
+        
+        # Print all files in current directory
+        indent_str = '|   ' * (level + 1) + '|--'
+        for f in files:
+            print(indent_str + f)
+
+# Example usage
+# Replace 'path/to/your/directory' with the actual path you want to scan
+start_path = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\retail_db'
+list_directory_structure(start_path)
+
+
+
+
+---------
+copy pr files.py
+
+
 import os
 import shutil
 
@@ -5,7 +57,8 @@ SOURCE_BASE_DIR = r"C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\f
 DESTINATION_DIR = r"C:\Users\punitkumar.more\Documents\Elisa\feature_bq_view_cng\fdw-dags"
 
 # List of workflow names to copy (case will be ignored)
-WORKFLOWS_TO_COPY = ['KAIKU.wf_INVOICE_to_kaiku_stg']
+WORKFLOWS_TO_COPY = [
+    ]
 
 def find_case_insensitive_path(base_path, path_parts):
     current_path = base_path
@@ -52,7 +105,6 @@ def copy_workflows():
 
         found_and_copied = False
         for template in path_templates:
-            print(f"path template: {template}")
             base_search_path = os.path.join(SOURCE_BASE_DIR, template)
             
             # Find the full source path with the correct casing
