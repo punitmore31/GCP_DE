@@ -118,5 +118,3 @@ else:
         print("Please check your Git configuration, permissions, and repository status.")
     except Exception as e:
         print(f"\n❌ An unexpected error occurred: {e}")
-
-

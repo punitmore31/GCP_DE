@@ -1,133 +1,83 @@
-
 import os
-def list_directory_structure(start_path):
-    for root, dirs, files in os.walk(start_path):
-        level = root.replace(start_path, '').count(os.sep)
-        indent = ' ' * 4 * level
-        print(f"{indent}{os.path.basename(root)}/")
-        subindent = ' ' * 4 * (level + 1)
-        for f in files:
-            print(f"{subindent}{f}")
-
-
-
-
-
-import os
-
-def list_directory_structure(startpath, indent=0):
-    """
-    Print the directory structure starting from startpath.
-    indent parameter controls the indentation level.
-    """
-    # Print the root directory
-    print('|--' + os.path.basename(startpath))
-    
-    # Walk through the directory
-    for root, dirs, files in os.walk(startpath):
-        level = root.replace(startpath, '').count(os.sep)
-        indent_str = '|   ' * level + '|--'
-        
-        # Print current directory name
-        folder_name = os.path.basename(root)
-        if root != startpath:
-            print(indent_str + folder_name)
-        
-        # Print all files in current directory
-        indent_str = '|   ' * (level + 1) + '|--'
-        for f in files:
-            print(indent_str + f)
-
-# Example usage
-# Replace 'path/to/your/directory' with the actual path you want to scan
-start_path = r'C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\retail_db'
-list_directory_structure(start_path)
-
-
-
-
----------
-copy pr files.py
-
-
-import os
+from pathlib import Path
 import shutil
 
-SOURCE_BASE_DIR = r"C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\fdw-dev\fdw_dags"
-DESTINATION_DIR = r"C:\Users\punitkumar.more\Documents\Elisa\feature_bq_view_cng\fdw-dags"
+SOURCE_BASED_PATH = r"C:\Users\punitkumar.more\Documents\Elisa\fdw-dev\fdw-dags"
+DESTINATION_BASED_PATH = r"C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\fdw-dev\fdw-dags"
 
-# List of workflow names to copy (case will be ignored)
-WORKFLOWS_TO_COPY = [
-    ]
+WORKFLOWS_TO_COPY = ['KAIKU.wf_InitPartyIdLkp','KAIKU.wf_dynamo_kaiku_stg']
+print(WORKFLOWS_TO_COPY)
 
-def find_case_insensitive_path(base_path, path_parts):
-    current_path = base_path
-    if not os.path.isdir(current_path):
-        return None
+def find_case_insensitive_path(search_base_path, path_parts):
+    CURRENT_PATH = search_base_path
 
-    for part in path_parts:
-        found_next = False
-        try:
-            sub_dirs = os.listdir(current_path)
-            for sub_dir in sub_dirs:
-                if sub_dir.lower() == part.lower():
-                    current_path = os.path.join(current_path, sub_dir)
-                    found_next = True
-                    break
-        except OSError:
-            return None            
-        if not found_next:
-            return None             
-    return current_path
-
+    for parts in path_parts:
+        sub_dirs = os.listdir(CURRENT_PATH)
+        print(f"sub_dir : {sub_dirs}")
+        for sub_dir in sub_dirs:
+            if sub_dir.lower() == parts.lower():
+                CURRENT_PATH = os.path.join(CURRENT_PATH,sub_dir)
+                break
+    return CURRENT_PATH
 
 def copy_workflows():
-    """
-    Main function to parse workflow list and copy the directories.
-    """
-    print(f"Destination folder is: '{os.path.abspath(DESTINATION_DIR)}'\n")
 
-    # Define the three directory structures to search within
     path_templates = [
-        os.path.join('fdw', 'config', 'dag_config'),
-        os.path.join('fdw', 'config', 'task_config'),
-        os.path.join('fdw', 'sql')
+        # Path("fdw") / "config" / "dag_config",
+        # Path("fdw") / "config" / "task_config",
+        # Path("fdw") / "sql"
+
+        os.path.join("fdw","config","dag_config"),
+        os.path.join("fdw","config","task_config"),
+        os.path.join("fdw","sql")
     ]
 
+    print(f"List of Path_templates : {path_templates} ")
+    print(
+        "---------------------------------------------------------------------------------------------------------------------------------"
+    )
+
     for workflow_id in WORKFLOWS_TO_COPY:
-        print(f"--- Processing '{workflow_id}' ---")
-        try:
-            # Split "DATASET.wf_name" into ['DATASET', 'wf_name']
-            dataset, wf_name = workflow_id.split('.', 1)
+        print(f"\nProcessing Wf : {workflow_id}")
+        print("******" *18)
+        try : 
+            DIR_NAME , WF_NAME  = workflow_id.split('.', 1)
         except ValueError:
             print(f"❌ ERROR: Invalid format for '{workflow_id}'. Skipping.")
             continue
-
-        found_and_copied = False
+        FOUND_AND_COPY = False
         for template in path_templates:
-            base_search_path = os.path.join(SOURCE_BASE_DIR, template)
-            
-            # Find the full source path with the correct casing
-            source_path = find_case_insensitive_path(base_search_path, [dataset, wf_name])
+            print(f"template : {template}")
+            search_base_path = os.path.join(SOURCE_BASED_PATH, template)
+            print(f"search_base_path : {search_base_path}")
 
-            if source_path and os.path.isdir(source_path):
-                # Construct the destination path to mirror the source structure
-                relative_path = os.path.relpath(source_path, SOURCE_BASE_DIR)
-                destination_path = os.path.join(DESTINATION_DIR, relative_path)
+            source_path = find_case_insensitive_path(search_base_path, [DIR_NAME,WF_NAME])
+            print(f"source_path = {source_path}")
 
-                print(f"  -> Found: '{source_path}'")
-                try:
-                    # Copy the entire directory tree
-                    shutil.copytree(source_path, destination_path, dirs_exist_ok=True)
-                    print(f"  ✅ Copied to: '{destination_path}'")
-                    found_and_copied = True
+            if os.path.isdir(source_path):
+                print("It's dorec")
+                print(f"printing the source {source_path} and Destinatioon path is L {search_base_path}")
+                relative_workflow_path = Path(source_path).relative_to(search_base_path)
+                # 3. Construct the DESTINATION_PATH by joining the DESTINATION_BASED_PATH, template, and relative path
+                print(f"relative_workflow_path :{relative_workflow_path}")
+                DESTINATION_PATH = Path(DESTINATION_BASED_PATH) / template / relative_workflow_path
+                # -------------------------------------------------------------------------------------------------------------
+                # DESTINATION_PATH = Path(f"{DESTINATION_BASED_PATH}") / f"{template}" / ""
+                print(f"Destination Path : {DESTINATION_PATH}")
+                try : 
+                    shutil.copytree(source_path, DESTINATION_PATH, dirs_exist_ok=True)
+                    print(f"  ✅ Copied to: '{DESTINATION_PATH}'")
                 except OSError as e:
-                    print(f"  ❌ ERROR copying to destination: {e}")
+                    print(f"❌Error while coping to destination")
+                
+                FOUND_AND_COPY = True
 
-        if not found_and_copied:
-            print(f"  -> No matching folders found for '{workflow_id}' in any of the configured paths.")
-        print("-" * (len(workflow_id) + 20))
-
+    if not FOUND_AND_COPY :
+        print(f"No Matching Folder found for {workflow_id} in any of the configured path")
+    print("-" * (len(workflow_id) + 20))
+                
 
 if __name__ == "__main__":
+    print("--" * 20, "Code Started to Copy the folders from one directory to another", "--" * 20)
     copy_workflows()
+    

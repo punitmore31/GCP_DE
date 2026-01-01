@@ -1,0 +1,13 @@
+users:
+ - name: John
+   role: admin
+ - name: Alice
+   role: editor
+ - name: Bob
+   role: viewer
+ - name: Eve
+   role: contributor
+settings:
+  theme: dark
+   
+

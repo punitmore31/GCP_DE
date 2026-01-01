@@ -1,11 +1,12 @@
 import os
 import shutil
 
-SOURCE_BASE_DIR = r"C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\fdw-dev\fdw_dags"
-DESTINATION_DIR = r"C:\Users\punitkumar.more\Documents\Elisa\feature_bq_view_cng\fdw-dags"
+SOURCE_BASE_DIR = r"C:\Users\punitkumar.more\Documents\Elisa\fdw-qa\fdw-dags"
+DESTINATION_DIR = r"C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\fdw-dev\fdw-dags"
 
 # List of workflow names to copy (case will be ignored)
-WORKFLOWS_TO_COPY = ['KAIKU.wf_INVOICE_to_kaiku_stg']
+WORKFLOWS_TO_COPY = ["KAIKU.wf_dynamo_kaiku_stg"]
+
 
 def find_case_insensitive_path(base_path, path_parts):
     current_path = base_path
@@ -15,16 +16,19 @@ def find_case_insensitive_path(base_path, path_parts):
     for part in path_parts:
         found_next = False
         try:
+            print(f"current path is : {current_path}")
             sub_dirs = os.listdir(current_path)
+            print(f"list of sub_dirs : {sub_dirs} ")
             for sub_dir in sub_dirs:
                 if sub_dir.lower() == part.lower():
                     current_path = os.path.join(current_path, sub_dir)
+                    print(f"current path after lowering the = {current_path}")
                     found_next = True
                     break
         except OSError:
-            return None            
+            return None
         if not found_next:
-            return None             
+            return None
     return current_path
 
 
@@ -36,16 +40,16 @@ def copy_workflows():
 
     # Define the three directory structures to search within
     path_templates = [
-        os.path.join('fdw', 'config', 'dag_config'),
-        os.path.join('fdw', 'config', 'task_config'),
-        os.path.join('fdw', 'sql')
+        os.path.join("fdw", "config", "dag_config"),
+        os.path.join("fdw", "config", "task_config"),
+        os.path.join("fdw", "sql"),
     ]
 
     for workflow_id in WORKFLOWS_TO_COPY:
         print(f"--- Processing '{workflow_id}' ---")
         try:
             # Split "DATASET.wf_name" into ['DATASET', 'wf_name']
-            dataset, wf_name = workflow_id.split('.', 1)
+            dataset, wf_name = workflow_id.split(".", 1)
         except ValueError:
             print(f"❌ ERROR: Invalid format for '{workflow_id}'. Skipping.")
             continue
@@ -54,14 +58,16 @@ def copy_workflows():
         for template in path_templates:
             print(f"path template: {template}")
             base_search_path = os.path.join(SOURCE_BASE_DIR, template)
-            
+            print(f"base_search_path : {base_search_path}")
             # Find the full source path with the correct casing
             source_path = find_case_insensitive_path(base_search_path, [dataset, wf_name])
 
             if source_path and os.path.isdir(source_path):
                 # Construct the destination path to mirror the source structure
+                print(f"found the kaiku path here : {source_path}")
                 relative_path = os.path.relpath(source_path, SOURCE_BASE_DIR)
                 destination_path = os.path.join(DESTINATION_DIR, relative_path)
+                print(f"destination path catup from relative path : {destination_path}")
 
                 print(f"  -> Found: '{source_path}'")
                 try:
@@ -70,10 +76,12 @@ def copy_workflows():
                     print(f"  ✅ Copied to: '{destination_path}'")
                     found_and_copied = True
                 except OSError as e:
-                    print(f"  ❌ ERROR copying to destination: {e}")
+                    print(f"❌ ERROR copying to destination: {e}")
 
         if not found_and_copied:
-            print(f"  -> No matching folders found for '{workflow_id}' in any of the configured paths.")
+            print(
+                f"  -> No matching folders found for '{workflow_id}' in any of the configured paths."
+            )
         print("-" * (len(workflow_id) + 20))
 
 
