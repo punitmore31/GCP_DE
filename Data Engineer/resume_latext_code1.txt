@@ -1,0 +1,75 @@
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+% ModernCV themes
+\moderncvstyle{banking} % Options: 'casual', 'classic', 'oldstyle', 'banking'
+\moderncvcolor{blue}    % Options: 'blue', 'orange', 'green', 'red', 'purple', 'grey'
+
+% Character encoding
+\usepackage[utf8]{inputenc}
+
+% Adjust the page margins
+\usepackage[scale=0.75]{geometry}
+
+% Personal data
+\name{Punitkumar}{More}
+% \title{Data Engineer}
+\address{Pune, India}{}
+\phone[mobile]{+91~928~402~6736}
+\email{punitmore31@gmail.com}
+\social[linkedin]{linkedin.com/in/punit-more/}
+% \social[github]{github.com/yourusername} % Uncomment if you have a GitHub
+
+%----------------------------------------------------------------------------------
+%            CONTENT
+%----------------------------------------------------------------------------------
+\begin{document}
+
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+\section{Professional Summary}
+GCP Data Engineer with 4 years of experience building cloud data systems. Experienced in using Python and Apache Airflow to build reliable data pipelines. Strong background in migrating legacy systems like Teradata and Informatica to BigQuery. Focused on data accuracy and optimization. Currently working on a high-volume cloud migration project for a Telecom client.
+
+\section{Technical Skills}
+\begin{itemize}
+    \item \textbf{Cloud Platform:} Google Cloud Platform (GCP).
+    \item \textbf{Data Warehousing:} Google BigQuery (Partitioning, Clustering), Teradata (BTEQ).
+    \item \textbf{Orchestration \& ETL:} Apache Airflow, Google Cloud Composer, Dynamic DAGs, Google Dataflow (Integration), IBM DataStage, Informatica PowerCenter.
+    \item \textbf{Languages \& Scripting:} SQL, Python, PySpark (Basic), Shell Scripting, YAML.
+    \item \textbf{Data Concepts:} ETL/ELT Architecture, Data Migration, Slowly Changing Dimensions (SCD Type 1 \& 2), Data Modeling, Performance Optimization
+\end{itemize}
+
+\section{Experience}
+
+%--- Current Project ---
+\cventry{June 2025 -- Present}{Data Engineer 1 (Client: Elisa - Telecom)}{Datametica Birds}{Pune, Maharashtra}{}{
+\begin{itemize}
+    \item \textbf{Orchestrated Dynamic Airflow Pipelines:} Leveraged dynamic DAGs driven by YAML configurations to automate the migration of legacy Informatica workflows to BigQuery, ensuring scalability and reducing manual coding efforts.
+    \item \textbf{Event-Driven Data Ingestion:} Orchestrated event-driven ingestion pipelines by implementing Airflow GCS Sensors to detect file arrival and trigger Dataflow Flex Templates, automating the seamless loading of data into BigQuery.
+    % \item \textbf{Fault-Tolerant Pipeline Design:} Implemented robust error handling by configuring \textbf{Dead Letter Queues (DLQ)} within Dataflow pipelines; captured malformed records and schema mismatches in separate BigQuery tables to ensure zero data loss.
+    \item \textbf{Resilient ELT Architecture:} Designed an ELT strategy to mitigate Schema Drift from upstream source systems; ingested raw data as loosely typed (String) records into staging layers, followed by strict SQL-based type casting and validation.
+    \item \textbf{Legacy Code Conversion:} Translated complex Informatica transformation logic into BigQuery-compatible SQL, ensuring functional parity while optimizing for cloud-native performance.
+    \item \textbf{Performance Optimization:} Optimized cloud expenditure by configuring Dataflow autoscaling parameters and enforcing Newline Delimited JSON (NDJSON) standards for parallel processing.
+\end{itemize}}
+
+%--- Previous Project ---
+\cventry{Dec 2021 -- May 2025}{Associate Engineer (Client: IBC - Health Insurance)}{Datametica Birds}{Pune, Maharashtra}{}{
+\begin{itemize}
+    \item \textbf{End-to-End Cloud Migration:} Spearheaded the migration of Teradata Data Warehouse and DataStage ETL pipelines to Google Cloud Platform (BigQuery), achieving a 30-40\% reduction in infrastructure costs through serverless architecture.
+    \item \textbf{Legacy Script Analysis:} Analyzed and converted complex Teradata BTEQ and KSH scripts into BigQuery SQL, ensuring zero data loss and maintaining 100\% logic consistency across production systems.
+    \item \textbf{Airflow Optimization:} Developed and optimized Apache Airflow DAGs to orchestrate complex data pipelines, improving system efficiency by 40\% and reducing runtime by 30\% through advanced performance tuning.
+    \item \textbf{Data Modeling \& Transformation:} Implemented SCD Type 1 and Type 2 logic in BigQuery to ensure historical data accuracy and enable incremental load capabilities during the transition from legacy systems.
+    \item \textbf{Quality Assurance:} Collaborated with testing teams during SIT/UAT phases to validate data accuracy, resolving critical pipeline issues that resulted in a 30\% improvement in post-migration ETL performance.
+\end{itemize}}
+
+\section{Education}
+\cventry{Aug 2018 -- Sep 2021}{BE in Computer Engineering}{SSBT’s College of Engineering and Technology}{Jalgaon, Maharashtra}{}{}
+\cventry{Aug 2015 -- May 2018}{Diploma In Computer Engineering}{Government Polytechnic}{Jalgaon, Maharashtra}{}{}
+
+\section{Licenses \& Certifications}
+\cventry{}{Associate Cloud Engineer}{Google Cloud Certification}{}{}{}
+
+\section{Honors \& Awards}
+\cvitem{Wow Award}{Commended for consistently efficient performance and technical expertise in resolving critical production issues and ensuring timely delivery.}
+\cvitem{Spot Award}{Appreciated for exemplary spirit and consistent hard work.}
+
+\end{document}
