@@ -1,0 +1,16 @@
+------------------------------------------------------------------
+Lession 2:
+-------------------------------------------------------------------
+Text Generation Guide
+- input -> cann be Text, image
+- output -> Text
+
+-> System Instruction,,Temperature
+-> Multimodel Behaviour
+-> Streaming Responses
+
+-> Chat Conversation Historu ( Next Video ... )
+
+--------------------------------------------------------------------
+Lession 3:
+---------------------------------------------------------------------
