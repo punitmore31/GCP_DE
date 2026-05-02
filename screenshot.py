@@ -7,13 +7,14 @@ from webdriver_manager.chrome import ChromeDriverManager
 # COMPOSER_LOCATION = "europe-west1"
 
 CHROME_PROFILE_PATH = (
-    r"C:\Users\punitkumar.more\AppData\Local\Google\Chrome\User Data\Profile 2"
+    r"C:\Users\punitkumar.more\AppData\Local\Google\Chrome\User Data\Profile 4"
 )
 CHROME_PROFILE_DIRECTORY = "Default"
 
 
 def capture_dag_screenshot(dag_id_list):
-    airflow_uri = "https://0951be772db74b0ba516e1926f8dde94-dot-europe-west1.composer.googleusercontent.com"
+    # airflow_uri = "https://0951be772db74b0ba516e1926f8dde94-dot-europe-west1.composer.googleusercontent.com"
+    airflow_uri = "https://a49743f32e61434faf3083b22bd1960d-dot-europe-west1.composer.googleusercontent.com"
     if not airflow_uri:
         return
     options = webdriver.ChromeOptions()
@@ -33,10 +34,10 @@ def capture_dag_screenshot(dag_id_list):
             print(f"Navigating to DAG: {dag_id}...")
             print(f"URL: {target_url}")
             driver.get(target_url)
-            wait_time = 5
+            wait_time = 50
             print(f"Waiting {wait_time} seconds for the page to render...")
             time.sleep(wait_time)
-            output_png_file = rf"C:\Users\punitkumar.more\Documents\Elisa\gcp_de\AUTOMATION\output\screenshot\{dag_id}.png"
+            output_png_file = rf"C:\Users\punitkumar.more\Documents\gcp_de\GCP_DE\SS\screenshot\{dag_id}.png"
             print(f"📸 Capturing screenshot to '{output_png_file}'...")
             driver.save_screenshot(output_png_file)
             print("✅ Screenshot saved successfully!")
@@ -52,32 +53,24 @@ def capture_dag_screenshot(dag_id_list):
 if __name__ == "__main__":
     # dag name list
     input_list = [
-        "wf_ar1_to_kaiku_stg",
-        "wf_base_to_kaiku_stg",
-        "wf_device_to_kaiku_stg",
-        # "wf_dynamo_kaiku_stg",
-        # "wf_fira_to_kaiku_stg",
-        # "wf_fixed_base_to_kaiku_stg",
-        # "wf_initkaikumeta",
-        # "wf_initpartyidlkp",
-        # "wf_invoice_to_kaiku_stg",
-        # "wf_invoicedata_tokaikustg",
-        # "wf_jpd_to_kaiku_stg",
-        # "wf_kaiku_datamart_report",
-        # "wf_kaiku_telco_cloud",
-        # "wf_mankeli_hierarchy_to_kaiku_stg",
-        # "wf_mankeli_to_kaiku_stg",
-        # "wf_nirap_tables_to_kaiku_stg",
-        # "wf_odw_bustokaikustg",
-        # "wf_odw_to_kaiku_stg",
-        # "wf_prepaid",
-        # "wf_rambo",
-        # "wf_roaming",
-        # "wf_sales_to_kaiku_stg",
-        # "wf_salesforce_kaiku_stg",
-        # "wf_sms_in_workaround",
-        # "wf_terra_to_kaiku_stg",
-        # "wf_usageic",
-        # "wf_vas",
+        "wf_mipa_init",
+        "wf_mipa_oe",
+        "wf_mipa_replicator",
+        "wf_MIPA_Product_to_SFDC",
+        "wf_daily_load_MIPA_TASPAIK1_MITOS",
+        "wf_mitos",
+        "wf_mitos_init",
+        "wf_mitos_order_init",
+        "wf_tellusabp_init",
+        "wf_tellus_oe",
+        "wf_telluscrm_init",
+        "wf_tellus_im_init",
+        "wf_telluscrm_rdp",
+        "wf_tellus_im",
+        "wf_tellusabp_rdp",
+        "wf_tellusabp_pwx",
+        "wf_telluscrm_pwx",
+        "wf_tellus_housekeeping"
+        
     ]
     capture_dag_screenshot(dag_id_list=input_list)
